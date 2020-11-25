@@ -1,0 +1,159 @@
+﻿<Window x:Class="_1760187_1760223_1760254_MiniProject_MediaPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_1760187_1760223_1760254_MiniProject_MediaPlayer"
+        Icon="/Icons/iconmedia.ico" 
+        mc:Ignorable="d" ResizeMode="NoResize"
+        Background="#CCCCFF" Name="cuaso" MouseDoubleClick="Cuaso_MouseDoubleClick"
+     Title="Media Player" Height="450" Width="804.5" Loaded="Window_Loaded">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open" CanExecute="Open_CanExecute" Executed="Open_Executed" />
+
+    </Window.CommandBindings>
+
+    <Grid MouseWheel="Grid_MouseWheel" Margin="0,0,4,-19">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <DockPanel Margin="0,0,0,10" Grid.RowSpan="2" >
+            <StackPanel Name="cacButton" DockPanel.Dock="Bottom"  >
+                <StatusBar Grid.Row="2">
+                    <StatusBar.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                            </Grid>
+                        </ItemsPanelTemplate>
+                    </StatusBar.ItemsPanel>
+
+                    <StatusBarItem>
+                        <TextBlock Name="lblProgressStatus">00:00:00</TextBlock>
+                    </StatusBarItem>
+                    <StatusBarItem Grid.Column="1" HorizontalContentAlignment="Stretch">
+                        <Slider Name="sliProgress" Thumb.DragStarted="sliProgress_DragStarted"  Thumb.DragCompleted="sliProgress_DragCompleted" ValueChanged="sliProgress_ValueChanged" />
+                    </StatusBarItem>
+                    <StatusBarItem Grid.Column="2" >
+                        <TextBlock Name="lblProgressStatus_1">00:00:00</TextBlock>
+                    </StatusBarItem>
+
+
+                </StatusBar>
+                <StatusBarItem >
+                    <ProgressBar Height="10" Name="progressbar"></ProgressBar>
+
+                </StatusBarItem>
+                <WrapPanel>
+                    <StatusBarItem >
+                        <Button Name="Save1" Content=" SAVE " Height="20" Width="50" Click="Save_Click"/>
+                    </StatusBarItem>
+                    <StatusBarItem >
+                        <Button Name="Delete" Content=" Delete " Height="20" Width="50" Click="Delete_Click"/>
+                    </StatusBarItem>
+                    <StatusBarItem >
+                        <Button Content="Open 1 playslist" Name="repeatButton1"  Height="20" Width="100"    Click="BrowseButton_Click" >
+
+                        </Button>
+                    </StatusBarItem >
+                    <StatusBarItem >
+                        <Button Content="Open file mp4" Name="repeatButton2"  Height="20" Width="100"    Click="BrowseButton_Click_1" >
+
+                        </Button>
+                    </StatusBarItem >
+
+                </WrapPanel>
+                <DockPanel Height="50" Background="#CCCCFF" UseLayoutRounding="False">
+                    <TextBlock Width="12" DockPanel.Dock="Left"></TextBlock>
+                    <Button Name="volumButton" DockPanel.Dock="Left" Width="50" Height="50"  Click="volumoff_Click" Background="{x:Null}" BorderThickness="0" >
+                        <Image Name="nutVolum" Height="30" Source="/Icons/volum.png"></Image>
+                    </Button>
+                    <StatusBarItem Grid.Column="2" Width="122">
+                        <ProgressBar Name="pbVolume" Width="100" Height="12" Maximum="1" Value="{Binding ElementName=videoPlayer, Path=Volume}" />
+                    </StatusBarItem>
+                    <TextBlock Name="Trai" DockPanel.Dock="Left" Width="50"></TextBlock>
+                    <TextBlock Name="Trai1" DockPanel.Dock="Left" Width="50"></TextBlock>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="stopButton"  Width="50" Height="40" Click="StopButton_Click"  Background="{x:Null}" BorderThickness="0" >
+                            <Image Source="/Icons/stop.png"></Image>
+                        </Button>
+                        <Button Name="backButton" Width="50" Height="40" Background="{x:Null}" BorderThickness="0" Click="BackButton_Click" >
+                            <Image Source="/Icons/back.png"></Image>
+                        </Button>
+
+                        <Button Name="playButton"  Width="50" Height="50" VerticalAlignment="Center" Click="PlayButton_Click" Background="{x:Null}" BorderThickness="0" >
+                            <Image Name="nutPlay"  ></Image>
+                        </Button>
+
+                        <Button Name="nextButton" Width="50" Height="40" Click="NextButton_Click"  Background="{x:Null}" BorderThickness="0" >
+                            <Image Source="/Icons/next.png"></Image>
+                        </Button>
+                        <Button Name="repeatButton" Width="50" Height="40" MouseDoubleClick="RepeatButton_MouseDoubleClick"   Click="RepeatButton_Click" Background="{x:Null}" BorderThickness="0">
+                            <Image Source="/Icons/repeat.png" Height="30" ></Image>
+                        </Button>
+
+                    </StackPanel>
+                    <TextBlock DockPanel.Dock="Right" Width="12"></TextBlock>
+                    <Button DockPanel.Dock="Right" Name="fullButton" Width="35" Height="40"  Click="FullButton_Click"  Background="{x:Null}" BorderThickness="0" >
+                        <Image Source="/Icons/full.png" Height="30"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="ZoomoutButton" Click="ZoomoutButton_Click" Width="35" Height="40" Background="{x:Null}" BorderThickness="0" >
+                        <Image Source="/Icons/Zoomout.png" Height="40"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="MinimizeButton" Width="35" Height="40" Click="MinimizeoutButton_Click"  Background="{x:Null}" BorderThickness="0" >
+                        <Image Source="/Icons/minus.png" Height="30"></Image>
+                    </Button>
+                    <Button DockPanel.Dock="Right" Name="RandomButton" Width="35" Height="40" Click="RandomButton_Click"  Background="{x:Null}" BorderThickness="0" >
+                        <Image Source="/Icons/shuffle.png" Height="30"></Image>
+                    </Button>
+                    <TextBlock Name="Phai" DockPanel.Dock="Right" Width="5"></TextBlock>
+
+                </DockPanel>
+            </StackPanel>
+            <DockPanel >
+                <Label Name="Tren" DockPanel.Dock="Top"></Label>
+
+                <TreeView Name="treeview" Width="194" SelectedItemChanged="foldersItem_SelectedItemChanged" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" DockPanel.Dock="Left" FontFamily="Yu Gothic Medium" FontSize="20" Margin="0,0,0,29" >
+
+
+
+                    <TreeViewItem >
+                        <TreeViewItem.Header>
+                            <StackPanel  Orientation="Horizontal" >
+
+                                <Image Source="/Icons/back.png" Width="20"/>
+                                <TextBlock Text="Videos" />
+
+                            </StackPanel>
+                        </TreeViewItem.Header>
+                    </TreeViewItem>
+                    <TreeViewItem >
+                        <TreeViewItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/Icons/back.png" Width="20"/>
+                                <TextBlock Text="PlayList Recently" />
+                            </StackPanel>
+                        </TreeViewItem.Header>
+                    </TreeViewItem>
+
+                </TreeView>
+
+
+                <ListView Name="fileListView" Width="194"  DockPanel.Dock="Right" Background="{x:Null}" BorderBrush="{x:Null}" Margin="0,0,0,10"   MouseDoubleClick="FileListView_MouseLeftButtonDown">
+
+
+                </ListView>
+                <MediaElement Name="videoPlayer" LoadedBehavior="Manual" Margin="0,0,0,10" Width="365"  />
+
+            </DockPanel>
+
+        </DockPanel>
+    </Grid>
+</Window>
